@@ -10,7 +10,26 @@
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Document</title>
 </head>
-<body>
-    
+<body>  
+  <main >
+  <div>
+
+    <div >
+      <h3>Search By Cocktail</h3>
+      <form id="cocktailFormEl" >
+        <label class="form-label" for="cocktail">Cocktail</label>
+        <input name="username" id="username" type="text" autofocus="true" class="form-input" />
+        <button type="submit" class="btn">Get Cocktail</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="col-12 col-md-8">
+    <h2 class="subtitle">Showing Repositories for: <span id="repo-search-term"></span></h2>
+    <div id="repos-container" class="list-group">
+
+    </div>
+  </div>
+  <script src="assets/js/script.js"></script>
 </body>
 </html>
