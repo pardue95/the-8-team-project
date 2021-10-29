@@ -21,5 +21,7 @@ var getCocktail = function(cocktail) {
             alert('Unable to connect to The Cocktail DB');
           });
       };
-  
-      getCocktail()
+
+      
+getCocktail();
+
