@@ -70,8 +70,8 @@ var displayCocktails = function(cocktailRecipe, cocktail) {
 
     cocktailEl.appendChild(cocktailRecipeEl)
 
-    var ingredientsEl =
+   
    }
-  }
+}
 
 cocktailFormEl.addEventListener("submit", formSubmitHandler);
