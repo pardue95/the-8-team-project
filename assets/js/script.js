@@ -58,7 +58,7 @@ var displayCocktails = function(cocktailRecipe, cocktail) {
 
     cocktailSearchTerm.textContent = cocktail
 
-   for (var i = 3; i < cocktailRecipe.length; i++) {
+   for (var i = 0; i < 2; i++) {
      //format cocktail name
      var cocktailName =cocktailRecipe[i].strDrink
      console.log(cocktailName)
