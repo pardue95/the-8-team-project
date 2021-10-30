@@ -29,7 +29,7 @@ var getCocktail = function(cocktail) {
           });
       };
 
-      
+
   
 var formSubmitHandler = function(event) {
         // prevent page from refreshing
