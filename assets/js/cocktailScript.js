@@ -1,13 +1,14 @@
 var cocktailFormEl = document.querySelector('.random-cocktail-btn');
 var cocktailInputEl = document.querySelector('#cocktail-name');
-var cocktailContainerEl = document.querySelector('#cocktail-container');
+var cocktailContainerEl = document.querySelector('#cocktail');
 var cocktailSearchTerm = document.querySelector('#cocktail-search-term');
-
+console.log(cocktailContainerEl)
 
 var getCocktail = function() {
 // format the cocktaildb api url
 
 var apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/random.php"
+
 fetch(apiUrl)
     .then((response) => {
         if (response.ok) {
@@ -18,7 +19,9 @@ fetch(apiUrl)
     })
     .then(data => {
         console.log(data);
+      
         displayCocktail(data)
+    
     })
     .catch((error) => console.error("FETCH ERROR:", error));
 
@@ -27,9 +30,13 @@ function displayCocktail(data) {
     const cocktail = data.drinks[0];
     console.log(cocktail)
     const cocktailDiv = document.getElementById("cocktail");
+// clears cocktail container
+    cocktailContainerEl.innerHTML= ""
     const cocktailName = cocktail.strDrink;
-    console.log(cocktailName)
+   
+    console.log(cocktailDiv)
     const heading = document.createElement("h1");
+
     heading.innerHTML = cocktailName;
     cocktailDiv.appendChild(heading)
     // get the image
@@ -37,11 +44,14 @@ function displayCocktail(data) {
     cocktailImg.src = cocktail.strDrinkThumb;
     cocktailDiv.appendChild(cocktailImg);
     // document.body.style.backgroundImage = "url('" + cocktail.strDrinkThumb + "')";  
+    
+    
     // get ingredients
     const cocktailIngredients = document.createElement("ul");
     cocktailDiv.appendChild(cocktailIngredients);
 
     const getIngredients = Object.keys(cocktail)
+
         .filter(function(ingredient) {
             return ingredient.indexOf("strIngredient") == 0;
         })
@@ -49,6 +59,7 @@ function displayCocktail(data) {
             if (cocktail[ingredient] != null) {
                 ingredients[ingredient] = cocktail[ingredient];
             }
+       
             return ingredients;
         }, {});
 
@@ -56,9 +67,11 @@ function displayCocktail(data) {
         let value = getIngredients[key];
         listItem = document.createElement("li");
         listItem.innerHTML = value;
+     
         cocktailIngredients.appendChild(listItem);
+  
     }
-
+  
 
 }
 }
