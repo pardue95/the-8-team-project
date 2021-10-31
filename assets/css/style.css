@@ -3,7 +3,7 @@
 .hero{
     height: 400px;
     background-size: cover;
-    background-image: url("/the-8-team-project/assets/assets/Images/multicolored dice.webp");
+    background-image: url("/assets/Images/multicolored\ dice.webp");
     background-position: center;
     position: relative;
     text-decoration: rgba(255, 0, 0, 0.623);
@@ -14,6 +14,12 @@
     text-align: right;
     color: red;
     font-size: 50px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.container {
+    text-align: center;
+    font-size: 20px;
     font-family: 'Courier New', Courier, monospace;
 }
 
