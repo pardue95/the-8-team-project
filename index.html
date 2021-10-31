@@ -1,37 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Drinks N' Dice</title>
 </head>
-<body>
-  <div class='optionsCointainer'><br>
-    <div id='selectionOne'><span>What is your budget?</span></div>
-    <form>
-    <select name="htmlMsrp" id='htmlMsrp'>
-      <option value="" disabled selected>Please make a selection</option>
-      <option value="under25">Under $25</option>
-      <option value="25to50">$25 to $50</option>
-      <option value="50to100">$50 to $100</option>
-      <option value="100andAbove">$100 and above</option>
-    </select>
-    <div id='selectionTwo'><br><span>How many players?</span></div>
-    <select name="htmlPlayers" id='htmlPlayers'>
-      <option value="" disabled selected>Please make a selection</option>
-      <option value="2to4">2-4</option>
-      <option value="5andMore">5 and more</option>
-    </select>
-  </form>
-  </div><br>
-  <div id='result'>
-    <button id='submitBtn'>Roll the dice!"</button>
-  </div><br>
-  <div id='resultContainer'>
-    result will be displayed here
+<body>  
+  <!--Begin Hero Section-->  
+  <section class="hero">
+    <div class="hero-body">
+      <p class="title">
+        Drinks N' Dice
+      </p>
+      <p class="subtitle">
+        Board Games & Cocktails
+      </p>
+    </div>
+  </section>
+
+
+  <main >
+
+  <!--Centered Container for page explanation-->
+        <div class="container">
+          <div class="notification is-info">
+            Welcome to Drinks N' Dice where you can pair the perfect boardgame with friends to the perfect cocktail!
+          </div>
+        </div>
+  
+  <!--Start Card Sections here-->
+      <!--Board Game Form Card--> 
+      <!--columns-->
+      <div class="columns">
+        <div class="column">
+          <!--Form Starts Here-->
+         <div class="time">
+          <label class="label">Time</label>
+          <div class="control">        
+            <input class="input" type="text" placeholder="Text input">
+          </div>
+          <p class="help">How long do you want to play?</p>
+        
+        <div class ="genre">
+        <label class="label">Genre</label>
+        <div class="control">
+          <div class="select">
+            <select>
+              <option>Select a Genre</option>
+              <option>Card Games</option>
+              <option>Bluffing</option>
+              <option>Competitive</option>
+              <option>Cooperative</option>
+              <option>Dexterity</option>
+              <option>Dice</option>
+              <option>Family</option>
+              <option>Legacy</option>
+              <option>Memory</option>
+              <option>One vs Many</option>
+              <option>Party</option>
+              <option>Resource Management</option>
+              <option>Semi-Cooperative</option>
+              <option>Tile Placement</option>
+            </select>
+           </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Form Ends-->
+  </div>
+</div>
+
+  <!-- Board Game Search Fields-->
+  <div>
+    <!-- MSRP -->
+    <label for="msrp">Maximum MSRP</label>
+    <input type="number" id="msrp" name="msrp" min="1">
+    <br>
+    <!-- Min/Max player count-->
+    <label for="minPlayer">Minimum Player Count</label>
+    <input type="number" id="minPlayer" name="minPlayer" min="1">
+    <br>
+    <!-- set a checker to ensure maxPlayer > minPlayer-->
+    <label for="maxPlayer">Maximum Player Count</label>
+    <input type="number" id="maxPlayer" name="maxPlayer" min="">
+    <!-- Genre -->
+    <!-- Playtime -->
+  </div>
+  <div>
+    <br>
+    <div class="card">
+      <div class="card-image">
+        <figure class="image is-4by3">
+          <img src="/assets/Images/martini-1117932_960_720 (1).jpg" alt="Colorful Martinis">
+        </figure>
+      </div>
+      <div class="card-content">
+        <div class="media">
+          <div class="media-left">
+          </div>
+          <div class="content">
+          Click below to have a random cocktail generated to go along with your gameplay!
+    
+          <br>
+      
+        </div>
+      </div>
+    </div>
+    <div >
+      <h3>Search By Cocktail</h3>
+      <form id="cocktailFormEl" >
+        <label class="form-label" for="cocktail">Cocktail</label>
+        <input name="username" id="username" type="text" autofocus="true" class="form-input" />
+        <button type="submit" class="btn">Get Cocktail</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="col-12 col-md-8">
+    <h2 class="subtitle">Showing Repositories for: <span id="repo-search-term"></span></h2>
+    <div id="repos-container" class="list-group">
+
+    </div>
   </div>
   <script src="assets/js/script.js"></script>
-  
+  <script src="assets/js/gameScript.js"></script>
+  <!--Footer Section-->
+<footer class="footer">
+  <div class="content has-text-centered">
+    <p>
+      <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
+      <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+      is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+    </p>
+  </div>
+</footer>
 </body>
+
 </html>
