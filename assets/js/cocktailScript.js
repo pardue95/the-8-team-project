@@ -21,7 +21,7 @@ fetch(apiUrl)
         console.log(data);
       
         displayCocktail(data)
-    
+    getInstruction(data.drinks[0].strInstructions)
     })
     .catch((error) => console.error("FETCH ERROR:", error));
 
@@ -74,6 +74,15 @@ function displayCocktail(data) {
   
 
 }
+}
+
+const getInstruction = function(instructions) {
+    console.log(instructions)
+    const cocktailDiv = document.getElementById("cocktail");
+   var instructionsEl = document.createElement('p')
+   instructionsEl.innerHTML= instructions
+    cocktailDiv.appendChild(instructionsEl)
+
 }
 
 
