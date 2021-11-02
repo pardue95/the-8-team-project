@@ -5,16 +5,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-
+    <!-- <link rel="stylesheet" href="./assets/css/debuger.css"> -->
     <link rel="stylesheet" href="./assets/css/style.css">
+    <script defer src="/assets/js/all.js"></script>
     <title>Drinks N' Dice</title>
 </head>
 
-<body>
-  <!--Begin Hero Section-->  
-     <section class="hero">
+<body class="has-navbar-fixed-top has-background-light">
+<!-- Nav Bar Start -->
+  <nav class="navbar level is-fixed-top">
+    <p class="level-item has-text-centered">
+      <a href="https://techbootcamps.utexas.edu/" class="link is-info has-text-black">UT Austin</a>
+    </p>
+    <p class="level-item has-text-centered">
+      <span class="icon">
+        <i class="fab fa-github-alt"></i>
+      </span>
+      <a href="" class="link is-info has-text-black">GitHub Pages</a>
+    </p>
+    <p class="level-item has-text-centered">
+      <img src="assets/Images/logo.png" alt="" style="height: 30px;">
+    </p>
+    <p class="level-item has-text-centered">
+      <span class="icon">
+        <i class="fab fa-github"></i>
+      </span>
+      <a href="https://github.com/pardue95/the-8-team-project" class="link is-info has-text-black">GitHub Repo</a>
+    </p>
+    <p class="level-item has-text-centered">
+      <span class="icon">
+        <i class="far fa-envelope"></i>
+      </span>
+      <a href="mailto:zak.krutikov@gmail.com" class="link is-info has-text-black">Contact Us</a>
+    </p>
+  </nav>
+<!-- Nav Bar End -->
+
+<!-- Background Video Start -->
+<video autoplay muted loop id="myVideo">
+  <source src="assets/video/video.mp4" type="video/mp4">
+</video>
+<!-- Background Video End -->
+
+<!-- Hero Section Start -->  
+     <section class="hero is-dark">
         <div class="hero-body">
-          <p class="title">
+          <p class="title is-size-1">
             Drinks N' Dice
           </p>
           <p class="subtitle">
@@ -22,98 +58,97 @@
           </p>
         </div>
       </section>
- 
-      <!--Centered Container for page explanation-->
-      <!-- <div class="container"> -->
-        <div class="notification is-link">
-          <div class="select">
-            <select>
-              <option value="" disabled selected>Select dropdown</option>
-              <option>Competitive</option>
-              <option>Cooperative</option>                 
-              <option>Family</option>
+<!-- Hero Section End --> 
+
+<!-- Search options seclector/ Search button container start -->
+        <div class="notification is-widescreen is-medium is-flex is-flex-wrap-wrap is-align-content-center is-align-items-center marginTop">
+          <div class="select margin">
+            <select name="htmlGenre" id="htmlGenre">
+              <option value="" disabled selected>Genre</option>
+              <option value="competitive">Competitive</option>
+              <option value="cooperative">Cooperative</option>                 
+              <option value="family">Family</option>
               <option>Party</option>
             </select>
           </div>
-          <div class="select">
+          <div class="select margin">
             <select name="htmlPlayers" id='htmlPlayers'>
-              <option value="" disabled selected>Select dropdown</option>
+              <option value="" disabled selected>Number of Players</option>
               <option value="2to4">2-4</option>
               <option value="5andMore">5 and more</option>
             </select>
           </div>
-          <div class="select">
-            <select>
-              <option value="" disabled selected>Select dropdown</option>
-              <option>With options</option>
+          <div class="select margin">
+            <select name="htmlMsrp" id="htmlMsrp">
+              <option value="" disabled selected>Budget</option>
+              <option value="under25">Under $25</option>
+              <option value="25to50">$25 to $50</option>
+              <option value="100andAbove">$100 and above</option>
             </select>
           </div>
-          <div class="select">
-            <select>
-              <option value="" disabled selected>Select dropdown</option>
-              <option>With options</option>
+          <div class="select margin">
+            <select name="htmlDrinks" id="htmlDrinks">
+              <option value="" disabled selected>Random Drink</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
             </select>
           </div>
+          <button class="btn margin" id="searchBtn">
+            <span class="icon is-medium ">
+              <i class="fas fa-dice"></i>
+            </span>
+          <span class="noselect">Roll the dice</span>
+          </button>
         </div>
-    
+<!-- Search options seclector/ Search button container end -->
 
-
- 
-
-
-
-
-
-    <!-- <div class="card">
+<!-- Main Page Body Start -->
+<div class="columns has-background-light">
+  <div class="column is-2">
+  <!-- Margin alternative/Placeholder-->
+  </div>
+  <div class="column is-4" id="gamesDisplayContainer">
+    <div class="card" id="gameImage">
       <div class="card-image">
-        <figure class="image is-4by3">
-          <img src="" alt="Colorful Martinis">
-        </figure>
+          <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
       </div>
-      <div class="card-content">
-        <div class="media">
-          <div class="media-left">
-          </div>
-          <div class="content">
-          Click below to have a random cocktail generated to go along with your gameplay!
-    
-          <br> -->
-      
-        </div>
+      <div class="title pad">
+        Game name goes here
       </div>
-    </div>
-
+      <div class="content pad">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente maxime beatae illo maiores ex voluptatum sequi voluptas est ratione magnam voluptates esse distinctio recusandae, atque illum adipisci dolorem quae facilis?
+      </div>
+      </div>
   </div>
+  <div class="column is-4" id="drinkDisplayContainer">
+    <div class="card" id="drinkImage">
+      <div class="card-image">
+          <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+      </div>
+      <div class="title pad">
+        Drink name goes here
+      </div>
+      <div class="content pad">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente maxime beatae illo maiores ex voluptatum sequi voluptas est ratione magnam voluptates esse distinctio recusandae, atque illum adipisci dolorem quae facilis?
+      </div>
+      </div>
   </div>
-  
-
-<section>
-  <div>
-<h2 class="subtitle">Enjoy this cocktail with your game  <span id="cocktail-search-term"></span></h2>
-<button type="submit" class="random-cocktail-btn">Get Random Cocktail</button>
-<div id="cocktail"></div>
-<div id="overlay"></div>
+  <div class="column is-2">
+  <!-- Margin alternative/Placeholder-->
+  </div>
 </div>
-</section>
-  </body>
-         
-       <!--Image for Cocktails-->
-       <figure class="image is-480x480">
-        <img src="assets/css/assets/Images/martini-1117932_960_720 (1).jpg">
-      </figure>
- 
-      <!--Footer Section-->
-      <footer class="footer">
-        <div class="content has-text-centered">
-          <p>
-            <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
-            <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
-            is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
-          </p>
-        </div>
-      </footer>
-     
-      <script src="assets/js/script.js"></script>
+<!-- Main Page Body End -->
+
+<!-- Footer Start -->
+<footer class="footer has-background-light">
+  <div class="content has-text-centered">
+    <p class="is-size-5">
+      <strong>Drinks N' Dice 2021</strong>
+    </p>
+  </div>
+</footer>
+ <!-- Footer End -->
+
+<script src="assets/js/script.js"></script>
 </body>
 </html>
-
