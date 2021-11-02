@@ -48,3 +48,26 @@ html {
   #cocktail li:not(:last-of-type) {
     border-bottom: 1px solid #fff;
   }
+
+  .hero{
+    height: 400px;
+    background-size: cover;
+    background-image: url("assets/Images/multicolored\ dice.webp");
+    background-position: center;
+    position: relative;
+    text-decoration: rgba(255, 0, 0, 0.623);
+}
+ 
+.title {
+    padding-top: 25px;
+    text-align: right;
+    color: red;
+    font-size: 50px;
+    font-family: 'Courier New', Courier, monospace;
+}
+ 
+.subtitle {
+    text-align: right;
+    color: whitesmoke;
+    font-family: 'Courier New', Courier, monospace;
+}
