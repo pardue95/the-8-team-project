@@ -29,6 +29,7 @@ function displayCocktail(data) {
     const cocktailDiv = document.getElementById("cocktail");
     const cocktailName = cocktail.strDrink;
     console.log(cocktailName)
+
     const heading = document.createElement("h1");
     heading.innerHTML = cocktailName;
     cocktailDiv.appendChild(heading)
@@ -59,9 +60,28 @@ function displayCocktail(data) {
         cocktailIngredients.appendChild(listItem);
     }
 
+    var ingredientMeasurement = data.drinks[0]
+    const getMeasurements = Object.keys(ingredientMeasurement)
+        .filter(function(ingredient) {
+            return ingredientMeasurement.indexOf("strMeasurement") == 0;
+        })
+        .reduce(function(measurements, measurement) {
+            if (cocktail[measurement] != null) {
+                measurements[measurement] = cocktail[measurement];
+            }
+            return measurements;
+        }, {});
 
-}
-}
+    for (let key in getMeasurements) {
+        let value = getMeasurements[key];
+        listItem = document.createElement("span");
+        listItem.innerHTML = value;
+        cocktailMeasurement.appendChild(listItem);
+    }
+
+    console.log (ingredientMeasure)
+};
+};
 
 
 cocktailFormEl.addEventListener("click", getCocktail);
