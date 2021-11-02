@@ -15,26 +15,17 @@ function api () {
 
   // price search parameter
   if (htmlMsrp.value == "under25") {
-    apiUrl += "&lt_price=" + 25;
+    apiUrl += "&lt_price=25";
     
   } 
   else if (htmlMsrp.value == "25to50") { 
     apiUrl += "&gt_price=24.99&lt_price=50";
 
   } 
-  else if (htmlMsrp.value == "50to100") {
-    apiUrl += "&gt_price=49.99&lt_price=100";
+  else if (htmlMsrp.value == "50andAbove") {
+    apiUrl += "&gt_price=49.99";
 
   } 
-  else if (htmlMsrp.value == "100andAbove") {
-    apiUrl += "&gt_price=99.99";
-
-  } 
-  else {
-    // remove alert later
-    alert("please make a selection");
-    return;
-  }
 
   // player count search parameter
 
@@ -46,11 +37,21 @@ function api () {
     apiUrl += "&min_players=5";
 
   } 
-  else {
-    // remove alert later
-    alert("please make a selection");
-    return;
-  }
+
+  // minimum age search parameter
+  if (htmlAge.value == "min6") {
+    apiUrl += "&gt_min_age=5";
+
+  } 
+  else if (htmlAge.value == "min12") {
+    apiUrl += "&gt_min_age=11";
+
+  } 
+
+  else if (htmlAge.value == "min18") {
+    apiUrl += "&gt_min_age=17";
+
+  } 
   
   fetch(apiUrl)
   .then(function(response) {
