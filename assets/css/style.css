@@ -53,11 +53,19 @@ html {
     height: 400px;
     background-size: cover;
     background-image: url("assets/Images/multicolored\ dice.webp");
+
+/* Hero Section Styling begin*/
+
+.hero{
+    height: 400px;
+    background-size: cover;
+    background-image: url("/assets/Images/multicolored\ dice.webp");
+
     background-position: center;
     position: relative;
     text-decoration: rgba(255, 0, 0, 0.623);
 }
- 
+
 .title {
     padding-top: 25px;
     text-align: right;
@@ -65,9 +73,29 @@ html {
     font-size: 50px;
     font-family: 'Courier New', Courier, monospace;
 }
- 
+
+.container {
+    text-align: center;
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
 .subtitle {
     text-align: right;
     color: whitesmoke;
     font-family: 'Courier New', Courier, monospace;
 }
+
+.card {
+    width: 40%;
+    height: 15vh;
+    object-fit: cover; 
+    display: block;
+    margin: 0 auto;  
+}
+
+.footer {
+    display: block;
+    margin: 0 auto;
+}
+
