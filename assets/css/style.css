@@ -1,15 +1,13 @@
-html {
-    height: 100%;
-  }
-  body {
+
+ /* body {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
     background-size: cover;
     font-family: sans-serif;
-  }
-  #overlay {
+  } */
+  /* #overlay {
     background: rgba(147, 135, 242, 0.9);
     position: fixed;
     top: 0;
@@ -47,16 +45,18 @@ html {
   }
   #cocktail li:not(:last-of-type) {
     border-bottom: 1px solid #fff;
-  }
+  } */
 
   .hero{
     height: 400px;
     background-size: cover;
-    background-image: url("assets/Images/multicolored\ dice.webp");
-
+    background-image: url("the-8-team-project\assets\Images\multicolored dice.webp");
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 36px;
+  }
 /* Hero Section Styling begin*/
 
-.hero{
+/* .hero {
     height: 400px;
     background-size: cover;
 
@@ -64,15 +64,15 @@ html {
     background-position: center;
     position: relative;
     text-decoration: rgba(255, 0, 0, 0.623);
-}
+} */
 
-.title {
+/* .title {
     padding-top: 25px;
     text-align: right;
     color: red;
     font-size: 50px;
     font-family: 'Courier New', Courier, monospace;
-}
+} */
 
 .container {
     text-align: center;
