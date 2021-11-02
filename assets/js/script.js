@@ -4,14 +4,11 @@ var cocktailContainerEl = document.querySelector('#cocktail-container');
 var cocktailSearchTerm = document.querySelector('#cocktail-search-term');
 
 let htmlMsrp = document.getElementById('htmlMsrp');
-let submitBtn = document.getElementById('submitBtn');
-submitBtn.addEventListener('click', api ) 
+let searchBtn = document.getElementById('searchBtn');
+ 
 
-function api () {
-  var apiUrl = "https://api.boardgameatlas.com/api/search?client_id=XWHzy7jIIr";
-  
-  let userMsrp = document.querySelector('htmlMsrp'); 
-  let resultsContainer = document.querySelector('resultContainer');
+var gameApi = function() {
+  var apiUrl = "https://api.boardgameatlas.com/api/search?client_id=XWHzy7jIIr&fields=name,description,image_url";
 
   // price search parameter
   if (htmlMsrp.value == "under25") {
@@ -138,4 +135,4 @@ cocktailEl.appendChild(cocktailRecipeEl)
 }
 }
 
-cocktailFormEl.addEventListener("submit", formSubmitHandler);
+searchBtn.addEventListener('click', gameApi );
