@@ -3,15 +3,16 @@ var cocktailInputEl = document.querySelector('#cocktail-name');
 var cocktailContainerEl = document.querySelector('#cocktail-container');
 var cocktailSearchTerm = document.querySelector('#cocktail-search-term');
 
-let htmlMsrp = document.getElementById('htmlMsrp');
-let submitBtn = document.getElementById('submitBtn');
-submitBtn.addEventListener('click', api ) 
+var gameName = document.querySelector('#gameName');
+var gameImage = document.querySelector('#gameImage');
+var gameDesc = document.querySelector('#gameDesc');
 
-function api () {
-  var apiUrl = "https://api.boardgameatlas.com/api/search?client_id=XWHzy7jIIr";
-  
-  let userMsrp = document.querySelector('htmlMsrp'); 
-  let resultsContainer = document.querySelector('resultContainer');
+let htmlMsrp = document.getElementById('htmlMsrp');
+let searchBtn = document.getElementById('searchBtn');
+ 
+
+var gameApi = function() {
+  var apiUrl = "https://api.boardgameatlas.com/api/search?client_id=XWHzy7jIIr&fields=name,description,image_url";
 
   // price search parameter
   if (htmlMsrp.value == "under25") {
@@ -33,8 +34,8 @@ function api () {
     apiUrl += "&min_players=2&max_player=4";
 
   } 
-  else if (htmlPlayers.value == "5andMore") {
-    apiUrl += "&min_players=5";
+  else if (htmlPlayers.value == "3to6") {
+    apiUrl += "&min_players=3&max_player=6";
 
   } 
 
@@ -60,8 +61,10 @@ function api () {
     if (response.ok) {
       response.json()
       .then(function(data) {
-        console.log(data);
-        return response.json; // not sure about this one
+        window.localStorage.setItem('game', JSON.stringify(data["games"]));
+        gameName.innerHTML = data["games"][0]["name"];
+        gameImage.src = data["games"][0]["image_url"];
+        gameDesc.innerHTML = data["games"][0]["description"];
       });
     }
   });
@@ -138,4 +141,4 @@ cocktailEl.appendChild(cocktailRecipeEl)
 }
 }
 
-cocktailFormEl.addEventListener("submit", formSubmitHandler);
+searchBtn.addEventListener('click', gameApi );

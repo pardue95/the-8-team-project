@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <!-- <link rel="stylesheet" href="./assets/css/debuger.css"> -->
     <link rel="stylesheet" href="./assets/css/style.css">
-    <script defer src="/assets/js/all.js"></script>
+    <script defer src="./assets/js/all.js"></script>
     <title>Drinks N' Dice</title>
 </head>
 
@@ -74,7 +74,7 @@
             <select name="htmlPlayers" id='htmlPlayers'>
               <option value="" disabled selected>Number of Players</option>
               <option value="2to4">2-4</option>
-              <option value="5andMore">5 and more</option>
+              <option value="3to6">3-6</option>
             </select>
           </div>
           <div class="select margin">
@@ -107,20 +107,20 @@
   <!-- Margin alternative/Placeholder-->
   </div>
   <div class="column is-4" id="gamesDisplayContainer">
-    <div class="card" id="gameImage">
+    <div class="card" id="gameImageCard">
       <div class="card-image">
-          <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+          <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image" id="gameImage">
       </div>
-      <div class="title pad">
+      <div class="title pad" id="gameName">
         Game name goes here
       </div>
-      <div class="content pad">
+      <div class="content pad" id="gameDesc">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente maxime beatae illo maiores ex voluptatum sequi voluptas est ratione magnam voluptates esse distinctio recusandae, atque illum adipisci dolorem quae facilis?
       </div>
       </div>
   </div>
   <div class="column is-4" id="drinkDisplayContainer">
-    <div class="card" id="drinkImage">
+    <div class="card" id="drinkImageCard">
       <div class="card-image">
           <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
       </div>
