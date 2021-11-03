@@ -61,9 +61,10 @@ var gameApi = function() {
     if (response.ok) {
       response.json()
       .then(function(data) {
+        window.localStorage.setItem('game', JSON.stringify(data["games"]));
         gameName.innerHTML = data["games"][0]["name"];
         gameImage.src = data["games"][0]["image_url"];
-        gameDesc.innerHTML = data["games"][0]["description"]
+        gameDesc.innerHTML = data["games"][0]["description"];
       });
     }
   });
