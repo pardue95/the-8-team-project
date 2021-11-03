@@ -1,7 +1,8 @@
-var cocktailFormEl = document.querySelector('#cocktail-form');
+var cocktailFormEl = document.querySelector('.random-cocktail-btn');
 var cocktailInputEl = document.querySelector('#cocktail-name');
-var cocktailContainerEl = document.querySelector('#cocktail-container');
+var cocktailContainerEl = document.querySelector('#cocktail');
 var cocktailSearchTerm = document.querySelector('#cocktail-search-term');
+var cocktailImage = document.querySelector("#drinkImage")
 
 var gameName = document.querySelector('#gameName');
 var gameImage = document.querySelector('#gameImage');
@@ -65,80 +66,123 @@ var gameApi = function() {
         gameName.innerHTML = data["games"][0]["name"];
         gameImage.src = data["games"][0]["image_url"];
         gameDesc.innerHTML = data["games"][0]["description"];
+        getCocktail()
       });
     }
   });
   
   }
 
-var getCocktail = function(cocktail) {
- 
-  // format the cocktaildb api url
-  var apiUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + cocktail
 
-  // make a get request to url
-  fetch(apiUrl)
-    .then(function(response) {
-      // request was successful
-      if (response.ok) {
-        console.log(response);
-        response.json().then(function(data) {
-          console.log(data);
-          console.log(data.drinks)
-          displayCocktails(data.drinks, cocktail)
-        });
-      } else {
-        alert('Error: ' + response.statusText);
+//Begin random cocktail generator
+  
+  var getCocktail = function() {
+      // format the cocktaildb api url
+  
+      var apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/random.php"
+  
+      fetch(apiUrl)
+          .then((response) => {
+              if (response.ok) {
+                  return response.json();
+              } else {
+                  throw new Error("NETWORK RESPONSE ERROR");
+              }
+          })
+          .then(data => {
+              console.log(data);
+  
+              displayCocktail(data)
+              getInstruction(data.drinks[0].strInstructions)
+          })
+          .catch((error) => console.error("FETCH ERROR:", error));
+  
+      function displayCocktail(data) {
+  
+          const cocktail = data.drinks[0];
+          console.log(cocktail)
+          const cocktailDiv = document.getElementById("cocktail");
+          // clears cocktail container
+          cocktailContainerEl.innerHTML = ""
+          const cocktailName = cocktail.strDrink;
+          cocktailDiv.innerHTML = cocktailName
+  
+          console.log(cocktailDiv)
+          const heading = document.createElement("h1");
+  
+          // heading.innerHTML = cocktailName;
+          cocktailDiv.appendChild(heading)
+          // get the image
+          // const cocktailImg = document.createElement("img");
+          console.log(cocktailImage)
+          cocktailImage.src = cocktail.strDrinkThumb;
+          cocktailDiv.appendChild(cocktailImage);
+         
+  
+  
+          // get ingredients
+          const cocktailIngredients = document.createElement("ul");
+          cocktailDiv.appendChild(cocktailIngredients);
+  
+          const getIngredients = Object.keys(cocktail)
+  
+              .filter(function(ingredient) {
+                  return ingredient.indexOf("strIngredient") == 0;
+              })
+              .reduce(function(ingredients, ingredient) {
+                  if (cocktail[ingredient] != null) {
+                      ingredients[ingredient] = cocktail[ingredient];
+                  }
+  
+                  return ingredients;
+              }, {});
+  
+          for (let key in getIngredients) {
+              let value = getIngredients[key];
+              listItem = document.createElement("li");
+              listItem.innerHTML = value;
+  
+              cocktailIngredients.appendChild(listItem);
+  
+          }
+  
+          const getMeasurements = Object.keys(cocktail)
+  
+              .filter(function(measurement) {
+                  return measurement.indexOf("strMeasure") == 0;
+              })
+              .reduce(function(measurements, measurement) {
+                  if (cocktail[measurement] != null) {
+                      measurements[measurement] = cocktail[measurement];
+                  }
+  
+                  return measurements;
+              }, {});
+  
+          for (let key in getMeasurements) {
+              let value = getMeasurements[key];
+              cocktailMeasurements = document.createElement("li");
+              cocktailMeasurements.innerHTML = value;
+              // console.log(value)
+              cocktailMeasurements.appendChild(listItem);
+  
+  
+  
+  
+          }
       }
-    })
-    .catch(function(error) {
-      alert('Unable to connect to The Cocktail DB');
-    });
-};
-
-
-
-var formSubmitHandler = function(event) {
-  // prevent page from refreshing
-  event.preventDefault();
-
-  // get value from input element
-  var cocktailName = cocktailInputEl.value.trim();
-
-  if (cocktailName) {
-    getCocktail(cocktailName);
-
-    // clear old content
-    cocktailContainerEl.textContent = '';
-    cocktailInputEl.value = '';
-  } else {
-    alert('Please enter a cocktail name');
+  
+      const getInstruction = function(instructions) {
+          // console.log(instructions)
+          const cocktailDiv = document.getElementById("cocktailInstructions");
+          cocktailDiv.innerHTML = ""
+          var instructionsEl = document.createElement('p')
+          instructionsEl.innerHTML = instructions
+          cocktailDiv.appendChild(instructionsEl)
+  
+      }
   }
 
-};
-
-var displayCocktails = function(cocktailRecipe, cocktail) {
-//check if API returns any cocktails
-if (cocktailRecipe.length === 0) {
-cocktailContainerEl.textContent = "No cocktails found.";
-return;}
-
-cocktailSearchTerm.textContent = cocktail
-
-for (var i = 0; i < 2; i++) {
-//format cocktail name
-var cocktailName =cocktailRecipe[i].strDrink
-console.log(cocktailName)
-
-// create a div for each cocktail
-var cocktailEl = document.querySelector("#cocktail-container");
-var cocktailRecipeEl = document.createElement("li");
-cocktailRecipeEl.textContent = cocktailName;
-
-cocktailEl.appendChild(cocktailRecipeEl)
-
-
-}
-}
-
-searchBtn.addEventListener('click', gameApi );
+  // cocktailFormEl.addEventListener("click", getCocktail);
+  searchBtn.addEventListener('click', gameApi );
+  // getCocktail();
