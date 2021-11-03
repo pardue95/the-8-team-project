@@ -180,5 +180,5 @@ var gameApi = function() {
       }
   }
 
-  // cocktailFormEl.addEventListener("click", getCocktail);
+  cocktailFormEl.addEventListener("click", getCocktail);
   // getCocktail();
