@@ -3,6 +3,10 @@ var cocktailInputEl = document.querySelector('#cocktail-name');
 var cocktailContainerEl = document.querySelector('#cocktail-container');
 var cocktailSearchTerm = document.querySelector('#cocktail-search-term');
 
+var gameName = document.querySelector('#gameName');
+var gameImage = document.querySelector('#gameImage');
+var gameDesc = document.querySelector('#gameDesc');
+
 let htmlMsrp = document.getElementById('htmlMsrp');
 let searchBtn = document.getElementById('searchBtn');
  
@@ -30,8 +34,8 @@ var gameApi = function() {
     apiUrl += "&min_players=2&max_player=4";
 
   } 
-  else if (htmlPlayers.value == "5andMore") {
-    apiUrl += "&min_players=5";
+  else if (htmlPlayers.value == "3to6") {
+    apiUrl += "&min_players=3&max_player=6";
 
   } 
 
@@ -57,8 +61,9 @@ var gameApi = function() {
     if (response.ok) {
       response.json()
       .then(function(data) {
-        console.log(data);
-        return response.json; // not sure about this one
+        gameName.innerHTML = data["games"][0]["name"];
+        gameImage.src = data["games"][0]["image_url"];
+        gameDesc.innerHTML = data["games"][0]["description"]
       });
     }
   });
