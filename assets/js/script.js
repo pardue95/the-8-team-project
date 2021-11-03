@@ -2,6 +2,7 @@ var cocktailFormEl = document.querySelector('.random-cocktail-btn');
 var cocktailInputEl = document.querySelector('#cocktail-name');
 var cocktailContainerEl = document.querySelector('#cocktail');
 var cocktailSearchTerm = document.querySelector('#cocktail-search-term');
+var cocktailImage = document.querySelector("#drinkImage")
 
 var gameName = document.querySelector('#gameName');
 var gameImage = document.querySelector('#gameImage');
@@ -112,10 +113,10 @@ var gameApi = function() {
           // heading.innerHTML = cocktailName;
           cocktailDiv.appendChild(heading)
           // get the image
-          const cocktailImg = document.createElement("img");
-          console.log(cocktailImg)
-          cocktailImg.src = cocktail.strDrinkThumb;
-          cocktailDiv.appendChild(cocktailImg);
+          // const cocktailImg = document.createElement("img");
+          console.log(cocktailImage)
+          cocktailImage.src = cocktail.strDrinkThumb;
+          cocktailDiv.appendChild(cocktailImage);
          
   
   
