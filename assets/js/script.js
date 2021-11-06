@@ -88,10 +88,10 @@ var gameApi = function() {
       response.json()
       .then(function(data) {
         window.localStorage.setItem('game', JSON.stringify(data["games"]));
-        storedData.push = data["games"];
+        storedData = data["games"];
         console.log(storedData);
         for (let i=0; i<storedData.length; i++) {
-          randomGame = Math.floor(Math.random()*storedData.length);
+          randomGame = Math.floor(Math.random() * storedData.length);
         }
         //gameName.innerHTML = storeData["games"][randomGame]["name"];
         gameName.innerHTML = storedData[randomGame].name;
