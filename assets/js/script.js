@@ -1,6 +1,6 @@
-let cocktailFormEl = document.querySelector('.random-cocktail-btn');
-let cocktailInputEl = document.querySelector('#cocktail-name');
-let cocktailContainerEl = document.querySelector('#cocktail');
+// let cocktailFormEl = document.querySelector('.random-cocktail-btn');
+// let cocktailInputEl = document.querySelector('#cocktail-name');
+// let cocktailContainerEl = document.querySelector('#cocktail');
 
 // Game render elements
 let gameName = document.querySelector('#gameName');
@@ -21,7 +21,7 @@ let htmlMsrp = document.querySelector('#htmlMsrp');
 let htmlDrinks = document.querySelector('#htmlDrinks');
 
 // Search 'Roll the Dice' button
-let searchBtn = document.getElementById('searchBtn');
+let searchBtn = document.querySelector('#searchBtn');
 
 // declaring local storage array
 let storedData = [];
@@ -85,30 +85,31 @@ var gameApi = function() {
       response.json()
       .then(function(data) {
         window.localStorage.setItem('game', JSON.stringify(data["games"]));
-        console.log(data);
-        storedData.push (JSON.stringify(data["games"]));
+        // Storing returned API data in an array
+        storedData = data["games"];
         console.log(storedData);
+        // Choose a random element from the stored array
         for (let i=0; i<storedData.length; i++) {
-          randomGame = Math.floor(Math.random()*storedData.length);
-        }
-        //gameName.innerHTML = storeData["games"][randomGame]["name"];
+        randomGame = Math.floor(Math.random() * storedData.length);
         gameName.innerHTML = storedData[randomGame].name;
         gameImage.src = storedData[randomGame].image_url;
         gameDesc.innerHTML = storedData[randomGame].description;
-        // gameImage.src = data["games"][randomGame]["image_url"];
-        // gameDesc.innerHTML = data["games"][randomGame]["description"];
-        // getCocktail()
+        }
+         getCocktail();
       });
     }
     else {
       throw new Error("NETWORK RESPONSE ERROR");
   }
   });
+
 // Drink randomizer function
   
-  var getCocktail = function() {
+  let getCocktail = function() {
+    // Checking to see if random drink is selected
     if (htmlDrinks.value === "No") {
-      // drink card stays hidden
+      // Drink card stays hidden
+      // For testing purposes
       console.log("No drink");
     } 
     else {
@@ -123,94 +124,17 @@ var gameApi = function() {
           .then(data => {
               // for testing purposes
               console.log(data);
+              // Storing returned API data in an array
+              window.localStorage.setItem('drink', JSON.stringify(data["drinks"]));
+           // storedData = data["drinks"];
+        console.log(storedData);
+        drinkName.innerHTML = data["drinks"][0]["strDrink"];
+        drinkImage.src = data["drinks"][0]["strDrinkThumb"];
+        drinkDesc.innerHTML = data["drinks"][0]["strInstructions"];
           })
           .catch((error) => console.error("FETCH ERROR:", error));
         }
-      // function displayCocktail(data) {
-  
-      //     const cocktail = data.drinks[0];
-      //     console.log(cocktail)
-      //     const cocktailDiv = document.getElementById("cocktail");
-      //     // clears cocktail container
-      //     cocktailContainerEl.innerHTML = ""
-      //     const cocktailName = cocktail.strDrink;
-      //     cocktailDiv.innerHTML = cocktailName
-  
-      //     console.log(cocktailDiv)
-      //     const heading = document.createElement("h1");
-  
-      //     // heading.innerHTML = cocktailName;
-      //     cocktailDiv.appendChild(heading)
-      //     // get the image
-      //     // const cocktailImg = document.createElement("img");
-      //     console.log(cocktailImage)
-      //     cocktailImage.src = cocktail.strDrinkThumb;
-      //     cocktailDiv.appendChild(cocktailImage);
-         
-  
-  
-          // get ingredients
-          const cocktailIngredients = document.createElement("ul");
-          cocktailDiv.appendChild(cocktailIngredients);
-  
-          const getIngredients = Object.keys(cocktail)
-  
-              .filter(function(ingredient) {
-                  return ingredient.indexOf("strIngredient") == 0;
-              })
-              .reduce(function(ingredients, ingredient) {
-                  if (cocktail[ingredient] != null) {
-                      ingredients[ingredient] = cocktail[ingredient];
-                  }
-  
-                  return ingredients;
-              }, {});
-  
-          for (let key in getIngredients) {
-              let value = getIngredients[key];
-              listItem = document.createElement("li");
-              listItem.innerHTML = value;
-  
-              cocktailIngredients.appendChild(listItem);
-  
-          }
-  
-          const getMeasurements = Object.keys(cocktail)
-  
-              .filter(function(measurement) {
-                  return measurement.indexOf("strMeasure") == 0;
-              })
-              .reduce(function(measurements, measurement) {
-                  if (cocktail[measurement] != null) {
-                      measurements[measurement] = cocktail[measurement];
-                  }
-  
-                  return measurements;
-              }, {});
-  
-          for (let key in getMeasurements) {
-              let value = getMeasurements[key];
-              cocktailMeasurements = document.createElement("li");
-              cocktailMeasurements.innerHTML = value;
-              // console.log(value)
-              cocktailMeasurements.appendChild(listItem);
-  
-  
-  
-  
-          }
       }
-  
-      const getInstruction = function(instructions) {
-          // console.log(instructions)
-          const cocktailDiv = document.getElementById("cocktailInstructions");
-          cocktailDiv.innerHTML = ""
-          var instructionsEl = document.createElement('p')
-          instructionsEl.innerHTML = instructions
-          cocktailDiv.appendChild(instructionsEl)
-  
       }
-  }
 // Event Listener 
 searchBtn.addEventListener('click', checkSelection );
-
