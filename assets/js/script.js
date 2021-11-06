@@ -23,10 +23,15 @@ let htmlDrinks = document.querySelector('#htmlDrinks');
 // Search 'Roll the Dice' button
 let searchBtn = document.getElementById('searchBtn');
 
+// declaring local storage array
+let storedData = [];
+
 // API variables delcared globally
 let apiUrlGame = "https://api.boardgameatlas.com/api/search?client_id=XWHzy7jIIr&fields=name,description,image_url";
 let apiUrlDrink = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
 
+// Random Game
+var randomGame = 0;
 
 // Functions 
 
@@ -37,13 +42,12 @@ if (htmlMsrp.value==="" || htmlAge.value ==="" || htmlPlayers==="" || htmlDrinks
   console.log ('please make a valid selection');
 }
 else {
-  gameApi;
+  appendApi();
 }
 }
 
-// Board Game select function
-var gameApi = function() { 
-  // Modifying the search API based on user search criteria selection
+// Function that appends the board game API based on user selected criteria
+var appendApi = function () {
   if (htmlMsrp.value == "under25") {
     apiUrlGame += "&lt_price=25";
   } 
@@ -70,6 +74,11 @@ var gameApi = function() {
   else if (htmlAge.value == "min18") {
     apiUrlGame += "&gt_min_age=17";
   } 
+  gameApi();
+}
+// Board Game select function
+var gameApi = function() { 
+
   // API call (modified base on search criteria)
   fetch(apiUrlGame)
   .then(function(response) {
@@ -79,9 +88,17 @@ var gameApi = function() {
       response.json()
       .then(function(data) {
         window.localStorage.setItem('game', JSON.stringify(data["games"]));
-        gameName.innerHTML = data["games"][0]["name"];
-        gameImage.src = data["games"][0]["image_url"];
-        gameDesc.innerHTML = data["games"][0]["description"];
+        storedData.push = data["games"];
+        console.log(storedData);
+        for (let i=0; i<storedData.length; i++) {
+          randomGame = Math.floor(Math.random()*storedData.length);
+        }
+        //gameName.innerHTML = storeData["games"][randomGame]["name"];
+        gameName.innerHTML = storedData[randomGame].name;
+        gameImage.src = storedData[randomGame].image_url;
+        gameDesc.innerHTML = storedData[randomGame].description;
+        // gameImage.src = data["games"][randomGame]["image_url"];
+        // gameDesc.innerHTML = data["games"][randomGame]["description"];
         // getCocktail()
       });
     }
