@@ -1,63 +1,79 @@
-var cocktailFormEl = document.querySelector('.random-cocktail-btn');
-var cocktailInputEl = document.querySelector('#cocktail-name');
-var cocktailContainerEl = document.querySelector('#cocktail');
-var cocktailSearchTerm = document.querySelector('#cocktail-search-term');
-var cocktailImage = document.querySelector("#drinkImage")
+let cocktailFormEl = document.querySelector('.random-cocktail-btn');
+let cocktailInputEl = document.querySelector('#cocktail-name');
+let cocktailContainerEl = document.querySelector('#cocktail');
 
-var gameName = document.querySelector('#gameName');
-var gameImage = document.querySelector('#gameImage');
-var gameDesc = document.querySelector('#gameDesc');
+// Game render elements
+let gameName = document.querySelector('#gameName');
+let gameImage = document.querySelector('#gameImage');
+let gameDesc = document.querySelector('#gameDesc');
 
-let htmlMsrp = document.getElementById('htmlMsrp');
+// Drink render elements
+let drinkName = document.querySelector('#drinkName');
+let drinkImage = document.querySelector('#drinkImage');
+let drinkDesc = document.querySelector('#drinkDesc');
+
+// Game search criteria
+let htmlAge = document.querySelector('#htmlAge');
+let htmlPlayers = document.querySelector('#htmlPlayers');
+let htmlMsrp = document.querySelector('#htmlMsrp');
+
+// Drink random criteria
+let htmlDrinks = document.querySelector('#htmlDrinks');
+
+// Search 'Roll the Dice' button
 let searchBtn = document.getElementById('searchBtn');
- 
 
-var gameApi = function() {
-  var apiUrl = "https://api.boardgameatlas.com/api/search?client_id=XWHzy7jIIr&fields=name,description,image_url";
+// API variables delcared globally
+let apiUrlGame = "https://api.boardgameatlas.com/api/search?client_id=XWHzy7jIIr&fields=name,description,image_url";
+let apiUrlDrink = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
 
-  // price search parameter
+
+// Functions 
+
+// Function that checks if user selected a search criteria input 
+let checkSelection = function() {
+if (htmlMsrp.value==="" || htmlAge.value ==="" || htmlPlayers==="" || htmlDrinks.value==="") {
+  // This needs to be changed to a modal? 
+  console.log ('please make a valid selection');
+}
+else {
+  gameApi;
+}
+}
+
+// Board Game select function
+var gameApi = function() { 
+  // Modifying the search API based on user search criteria selection
   if (htmlMsrp.value == "under25") {
-    apiUrl += "&lt_price=25";
-    
+    apiUrlGame += "&lt_price=25";
   } 
   else if (htmlMsrp.value == "25to50") { 
-    apiUrl += "&gt_price=24.99&lt_price=50";
-
+    apiUrlGame += "&gt_price=24.99&lt_price=50";
   } 
   else if (htmlMsrp.value == "50andAbove") {
-    apiUrl += "&gt_price=49.99";
-
+    apiUrlGame += "&gt_price=49.99";
   } 
-
   // player count search parameter
-
   if (htmlPlayers.value == "2to4") {
-    apiUrl += "&min_players=2&max_player=4";
-
+    apiUrlGame += "&min_players=2&max_player=4";
   } 
   else if (htmlPlayers.value == "3to6") {
-    apiUrl += "&min_players=3&max_player=6";
-
+    apiUrlGame += "&min_players=3&max_player=6";
   } 
-
   // minimum age search parameter
   if (htmlAge.value == "min6") {
-    apiUrl += "&gt_min_age=5";
-
+    apiUrlGame += "&gt_min_age=5";
   } 
   else if (htmlAge.value == "min12") {
-    apiUrl += "&gt_min_age=11";
-
+    apiUrlGame += "&gt_min_age=11";
   } 
-
   else if (htmlAge.value == "min18") {
-    apiUrl += "&gt_min_age=17";
-
+    apiUrlGame += "&gt_min_age=17";
   } 
-  
-  fetch(apiUrl)
+  // API call (modified base on search criteria)
+  fetch(apiUrlGame)
   .then(function(response) {
-    //clear divs inner html here
+    // for testing purposes
     console.log(response);
     if (response.ok) {
       response.json()
@@ -66,22 +82,22 @@ var gameApi = function() {
         gameName.innerHTML = data["games"][0]["name"];
         gameImage.src = data["games"][0]["image_url"];
         gameDesc.innerHTML = data["games"][0]["description"];
-        getCocktail()
+        // getCocktail()
       });
     }
-  });
-  
+    else {
+      throw new Error("NETWORK RESPONSE ERROR");
   }
-
-
-//Begin random cocktail generator
+  });
+// Drink randomizer function
   
   var getCocktail = function() {
-      // format the cocktaildb api url
-  
-      var apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/random.php"
-  
-      fetch(apiUrl)
+    if (htmlDrinks.value === "No") {
+      // drink card stays hidden
+      console.log("No drink");
+    } 
+    else {
+      fetch(apiUrlDrink)
           .then((response) => {
               if (response.ok) {
                   return response.json();
@@ -90,33 +106,31 @@ var gameApi = function() {
               }
           })
           .then(data => {
+              // for testing purposes
               console.log(data);
-  
-              displayCocktail(data)
-              getInstruction(data.drinks[0].strInstructions)
           })
           .catch((error) => console.error("FETCH ERROR:", error));
+        }
+      // function displayCocktail(data) {
   
-      function displayCocktail(data) {
+      //     const cocktail = data.drinks[0];
+      //     console.log(cocktail)
+      //     const cocktailDiv = document.getElementById("cocktail");
+      //     // clears cocktail container
+      //     cocktailContainerEl.innerHTML = ""
+      //     const cocktailName = cocktail.strDrink;
+      //     cocktailDiv.innerHTML = cocktailName
   
-          const cocktail = data.drinks[0];
-          console.log(cocktail)
-          const cocktailDiv = document.getElementById("cocktail");
-          // clears cocktail container
-          cocktailContainerEl.innerHTML = ""
-          const cocktailName = cocktail.strDrink;
-          cocktailDiv.innerHTML = cocktailName
+      //     console.log(cocktailDiv)
+      //     const heading = document.createElement("h1");
   
-          console.log(cocktailDiv)
-          const heading = document.createElement("h1");
-  
-          // heading.innerHTML = cocktailName;
-          cocktailDiv.appendChild(heading)
-          // get the image
-          // const cocktailImg = document.createElement("img");
-          console.log(cocktailImage)
-          cocktailImage.src = cocktail.strDrinkThumb;
-          cocktailDiv.appendChild(cocktailImage);
+      //     // heading.innerHTML = cocktailName;
+      //     cocktailDiv.appendChild(heading)
+      //     // get the image
+      //     // const cocktailImg = document.createElement("img");
+      //     console.log(cocktailImage)
+      //     cocktailImage.src = cocktail.strDrinkThumb;
+      //     cocktailDiv.appendChild(cocktailImage);
          
   
   
@@ -182,7 +196,6 @@ var gameApi = function() {
   
       }
   }
+// Event Listener 
+searchBtn.addEventListener('click', checkSelection );
 
-  // cocktailFormEl.addEventListener("click", getCocktail);
-  searchBtn.addEventListener('click', gameApi );
-  // getCocktail();
