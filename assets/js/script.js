@@ -30,9 +30,6 @@ let storedData = [];
 let apiUrlGame = "https://api.boardgameatlas.com/api/search?client_id=XWHzy7jIIr&fields=name,description,image_url";
 let apiUrlDrink = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
 
-// Random Game
-var randomGame = 0;
-
 // Functions 
 
 // Function that checks if user selected a search criteria input 
@@ -88,7 +85,8 @@ var gameApi = function() {
       response.json()
       .then(function(data) {
         window.localStorage.setItem('game', JSON.stringify(data["games"]));
-        storedData.push = data["games"];
+        console.log(data);
+        storedData.push (JSON.stringify(data["games"]));
         console.log(storedData);
         for (let i=0; i<storedData.length; i++) {
           randomGame = Math.floor(Math.random()*storedData.length);
