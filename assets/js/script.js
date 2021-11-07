@@ -37,6 +37,7 @@ let checkSelection = function() {
 if (htmlMsrp.value==="" || htmlAge.value ==="" || htmlPlayers==="" || htmlDrinks.value==="") {
   // This needs to be changed to a modal? 
   console.log ('please make a valid selection');
+  modal()
 }
 else {
   appendApi();
@@ -138,3 +139,28 @@ var gameApi = function() {
       }
 // Event Listener 
 searchBtn.addEventListener('click', checkSelection );
+
+const modal = function(){
+  // Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user makes invalid selection show modal
+
+modal.style.display = "block";
+
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+}
