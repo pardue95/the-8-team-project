@@ -34,7 +34,7 @@ let apiUrlDrink = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
 let checkSelection = function() {
 if (htmlMsrp.value==="" || htmlAge.value ==="" || htmlPlayers==="" || htmlDrinks.value==="") {
   // This needs to be changed to a modal? 
-  console.log ('please make a valid selection');
+  modal()
 }
 else {
   appendApi();
@@ -77,15 +77,12 @@ var gameApi = function() {
   // API call (modified base on search criteria)
   fetch(apiUrlGame)
   .then(function(response) {
-    // for testing purposes
-    console.log(response);
     if (response.ok) {
       response.json()
       .then(function(data) {
         window.localStorage.setItem('game', JSON.stringify(data["games"]));
         // Storing returned API data in an array
         storedData = data["games"];
-        console.log(storedData);
         // Choose a random element from the stored array
         for (let i=0; i<storedData.length; i++) {
         randomGame = Math.floor(Math.random() * storedData.length);
@@ -121,12 +118,9 @@ var gameApi = function() {
               }
           })
           .then(data => {
-              // for testing purposes
-              console.log(data);
               // Storing returned API data in an array
               window.localStorage.setItem('drink', JSON.stringify(data["drinks"]));
            // storedData = data["drinks"];
-        console.log(storedData);
         drinkName.innerHTML = data["drinks"][0]["strDrink"];
         drinkImage.src = data["drinks"][0]["strDrinkThumb"];
         drinkDesc.innerHTML = data["drinks"][0]["strInstructions"];
@@ -135,5 +129,30 @@ var gameApi = function() {
         }
       }
       }
+
+      const modal = function() {
+        // Get the modal
+        var modal = document.getElementById("myModal");
+      
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+      
+        // When the user makes invalid selection show modal
+      
+        modal.style.display = "block";
+      
+      
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+      
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            };
+        };
+      };
 // Event Listener 
 searchBtn.addEventListener('click', checkSelection );
