@@ -1,13 +1,11 @@
-// let cocktailFormEl = document.querySelector('.random-cocktail-btn');
-// let cocktailInputEl = document.querySelector('#cocktail-name');
-// let cocktailContainerEl = document.querySelector('#cocktail');
-
 // Game render elements
+let gameDisplayContainer = document.querySelector('#gameDisplayContainer');
 let gameName = document.querySelector('#gameName');
 let gameImage = document.querySelector('#gameImage');
 let gameDesc = document.querySelector('#gameDesc');
 
 // Drink render elements
+let drinkDisplayContainer = document.querySelector('#drinkDisplayContainer');
 let drinkName = document.querySelector('#drinkName');
 let drinkImage = document.querySelector('#drinkImage');
 let drinkDesc = document.querySelector('#drinkDesc');
@@ -75,7 +73,7 @@ var appendApi = function () {
 }
 // Board Game select function
 var gameApi = function() { 
-
+  gameDisplayContainer.classList.remove('hide');
   // API call (modified base on search criteria)
   fetch(apiUrlGame)
   .then(function(response) {
@@ -113,6 +111,7 @@ var gameApi = function() {
       console.log("No drink");
     } 
     else {
+      drinkDisplayContainer.classList.remove('hide');
       fetch(apiUrlDrink)
           .then((response) => {
               if (response.ok) {
