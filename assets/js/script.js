@@ -1,140 +1,158 @@
-var cocktailFormEl = document.querySelector('#cocktail-form');
-var cocktailInputEl = document.querySelector('#cocktail-name');
-var cocktailContainerEl = document.querySelector('#cocktail-container');
-var cocktailSearchTerm = document.querySelector('#cocktail-search-term');
+// Game render elements
+let gameDisplayContainer = document.querySelector('#gameDisplayContainer');
+let gameName = document.querySelector('#gameName');
+let gameImage = document.querySelector('#gameImage');
+let gameDesc = document.querySelector('#gameDesc');
 
-let htmlMsrp = document.getElementById('htmlMsrp');
-let submitBtn = document.getElementById('submitBtn');
-submitBtn.addEventListener('click', api ) 
+// Drink render elements
+let drinkDisplayContainer = document.querySelector('#drinkDisplayContainer');
+let drinkName = document.querySelector('#drinkName');
+let drinkImage = document.querySelector('#drinkImage');
+let drinkDesc = document.querySelector('#drinkDesc');
 
-function api () {
-  var apiUrl = "https://api.boardgameatlas.com/api/search?client_id=XWHzy7jIIr";
-  
-  let userMsrp = document.querySelector('htmlMsrp'); 
-  let resultsContainer = document.querySelector('resultContainer');
+// Game search criteria
+let htmlAge = document.querySelector('#htmlAge');
+let htmlPlayers = document.querySelector('#htmlPlayers');
+let htmlMsrp = document.querySelector('#htmlMsrp');
 
-  // price search parameter
+// Drink random criteria
+let htmlDrinks = document.querySelector('#htmlDrinks');
+
+// Search 'Roll the Dice' button
+let searchBtn = document.querySelector('#searchBtn');
+
+// declaring local storage array
+let storedData = [];
+
+// API variables delcared globally
+let apiUrlGame = "https://api.boardgameatlas.com/api/search?client_id=XWHzy7jIIr&fields=name,description,image_url";
+let apiUrlDrink = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
+
+// Functions 
+
+// Function that checks if user selected a search criteria input 
+let checkSelection = function() {
+if (htmlMsrp.value==="" || htmlAge.value ==="" || htmlPlayers==="" || htmlDrinks.value==="") {
+  // This needs to be changed to a modal? 
+  modal()
+}
+else {
+  appendApi();
+}
+}
+
+// Function that appends the board game API based on user selected criteria
+var appendApi = function () {
   if (htmlMsrp.value == "under25") {
-    apiUrl += "&lt_price=" + 25;
-    
+    apiUrlGame += "&lt_price=25";
   } 
   else if (htmlMsrp.value == "25to50") { 
-    apiUrl += "&gt_price=24.99&lt_price=50";
-
+    apiUrlGame += "&gt_price=24.99&lt_price=50";
   } 
-  else if (htmlMsrp.value == "50to100") {
-    apiUrl += "&gt_price=49.99&lt_price=100";
-
+  else if (htmlMsrp.value == "50andAbove") {
+    apiUrlGame += "&gt_price=49.99";
   } 
-  else if (htmlMsrp.value == "100andAbove") {
-    apiUrl += "&gt_price=99.99";
-
-  } 
-  else {
-    // remove alert later
-    alert("please make a selection");
-    return;
-  }
-
   // player count search parameter
-
   if (htmlPlayers.value == "2to4") {
-    apiUrl += "&min_players=2&max_player=4";
-
+    apiUrlGame += "&min_players=2&max_player=4";
   } 
-  else if (htmlPlayers.value == "5andMore") {
-    apiUrl += "&min_players=5";
-
+  else if (htmlPlayers.value == "3to6") {
+    apiUrlGame += "&min_players=3&max_player=6";
   } 
-  else {
-    // remove alert later
-    alert("please make a selection");
-    return;
-  }
-  
-  fetch(apiUrl)
+  // minimum age search parameter
+  if (htmlAge.value == "min6") {
+    apiUrlGame += "&gt_min_age=5";
+  } 
+  else if (htmlAge.value == "min12") {
+    apiUrlGame += "&gt_min_age=11";
+  } 
+  else if (htmlAge.value == "min18") {
+    apiUrlGame += "&gt_min_age=17";
+  } 
+  gameApi();
+}
+// Board Game select function
+var gameApi = function() { 
+  gameDisplayContainer.classList.remove('hide');
+  // API call (modified base on search criteria)
+  fetch(apiUrlGame)
   .then(function(response) {
-    //clear divs inner html here
-    console.log(response);
     if (response.ok) {
       response.json()
       .then(function(data) {
-        console.log(data);
-        return response.json; // not sure about this one
+        window.localStorage.setItem('game', JSON.stringify(data["games"]));
+        // Storing returned API data in an array
+        storedData = data["games"];
+        // Choose a random element from the stored array
+        for (let i=0; i<storedData.length; i++) {
+        randomGame = Math.floor(Math.random() * storedData.length);
+        gameName.innerHTML = storedData[randomGame].name;
+        gameImage.src = storedData[randomGame].image_url;
+        gameDesc.innerHTML = storedData[randomGame].description;
+        }
+         getCocktail();
       });
     }
+    else {
+      throw new Error("NETWORK RESPONSE ERROR");
+  }
   });
+
+// Drink randomizer function
   
-  }
-
-var getCocktail = function(cocktail) {
- 
-  // format the cocktaildb api url
-  var apiUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + cocktail
-
-  // make a get request to url
-  fetch(apiUrl)
-    .then(function(response) {
-      // request was successful
-      if (response.ok) {
-        console.log(response);
-        response.json().then(function(data) {
-          console.log(data);
-          console.log(data.drinks)
-          displayCocktails(data.drinks, cocktail)
-        });
-      } else {
-        alert('Error: ' + response.statusText);
+  let getCocktail = function() {
+    // Checking to see if random drink is selected
+    if (htmlDrinks.value === "No") {
+      // Drink card stays hidden
+      // For testing purposes
+      console.log("No drink");
+    } 
+    else {
+      drinkDisplayContainer.classList.remove('hide');
+      fetch(apiUrlDrink)
+          .then((response) => {
+              if (response.ok) {
+                  return response.json();
+              } else {
+                  throw new Error("NETWORK RESPONSE ERROR");
+              }
+          })
+          .then(data => {
+              // Storing returned API data in an array
+              window.localStorage.setItem('drink', JSON.stringify(data["drinks"]));
+           // storedData = data["drinks"];
+        drinkName.innerHTML = data["drinks"][0]["strDrink"];
+        drinkImage.src = data["drinks"][0]["strDrinkThumb"];
+        drinkDesc.innerHTML = data["drinks"][0]["strInstructions"];
+          })
+          .catch((error) => console.error("FETCH ERROR:", error));
+        }
       }
-    })
-    .catch(function(error) {
-      alert('Unable to connect to The Cocktail DB');
-    });
-};
+      }
 
-
-
-var formSubmitHandler = function(event) {
-  // prevent page from refreshing
-  event.preventDefault();
-
-  // get value from input element
-  var cocktailName = cocktailInputEl.value.trim();
-
-  if (cocktailName) {
-    getCocktail(cocktailName);
-
-    // clear old content
-    cocktailContainerEl.textContent = '';
-    cocktailInputEl.value = '';
-  } else {
-    alert('Please enter a cocktail name');
-  }
-
-};
-
-var displayCocktails = function(cocktailRecipe, cocktail) {
-//check if API returns any cocktails
-if (cocktailRecipe.length === 0) {
-cocktailContainerEl.textContent = "No cocktails found.";
-return;}
-
-cocktailSearchTerm.textContent = cocktail
-
-for (var i = 0; i < 2; i++) {
-//format cocktail name
-var cocktailName =cocktailRecipe[i].strDrink
-console.log(cocktailName)
-
-// create a div for each cocktail
-var cocktailEl = document.querySelector("#cocktail-container");
-var cocktailRecipeEl = document.createElement("li");
-cocktailRecipeEl.textContent = cocktailName;
-
-cocktailEl.appendChild(cocktailRecipeEl)
-
-
-}
-}
-
-cocktailFormEl.addEventListener("submit", formSubmitHandler);
+      const modal = function() {
+        // Get the modal
+        var modal = document.getElementById("myModal");
+      
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+      
+        // When the user makes invalid selection show modal
+      
+        modal.style.display = "block";
+      
+      
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+      
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            };
+        };
+      };
+// Event Listener 
+searchBtn.addEventListener('click', checkSelection );
