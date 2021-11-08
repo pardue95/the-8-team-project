@@ -40,3 +40,6 @@ A cocktail will be randomly paired for you on the site. Don’t like it? Click t
 ![image](https://user-images.githubusercontent.com/88806010/140672865-ed566c52-8539-4102-a349-9f1324c55128.png)
 
 5. Here is a link to our deployed application. Please enjoy Drinks N' Dice on your next game night! We look forward to helping you entertain!
+
+https://pardue95.github.io/the-8-team-project/
+
