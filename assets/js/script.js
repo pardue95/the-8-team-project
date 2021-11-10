@@ -25,7 +25,7 @@ let searchBtn = document.querySelector('#searchBtn');
 let storedData = [];
 
 // API variables delcared globally
-let apiUrlGame = "https://api.boardgameatlas.com/api/search?client_id=XWHzy7jIIr&fields=name,description,image_url";
+var apiUrlGame = "https://api.boardgameatlas.com/api/search?client_id=XWHzy7jIIr&fields=name,description,image_url";
 let apiUrlDrink = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
 
 // Functions 
@@ -69,6 +69,7 @@ var appendApi = function () {
   else if (htmlAge.value == "min18") {
     apiUrlGame += "&gt_min_age=17";
   } 
+
   gameApi();
 }
 // Board Game select function
@@ -102,7 +103,7 @@ var gameApi = function() {
   
   let getCocktail = function() {
     // Checking to see if random drink is selected
-    if (htmlDrinks.value === "No") {
+    if (htmlDrinks.value === "no") {
       // Drink card stays hidden
       // For testing purposes
       console.log("No drink");
